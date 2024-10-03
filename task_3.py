@@ -13,28 +13,58 @@ text = """homEwork:
 
 
 
-  last iz TO calculate nuMber OF Whitespace characteRS in this Text. caREFULL, not only Spaces, but ALL whitespaces. I got 87.
-"""
-# Split the text into sentences based on periods or new lines
-sentences = re.split(r'[.\n]+', text)
+  last iz TO calculate nuMber OF Whitespace characteRS in this Text. caREFULL, not only Spaces, but ALL whitespaces. I got 87."""
 
-# Initialize an empty list to store the last words of each sentence
+# Specify the pointer to the paragraph where the new sentence should be added
+target_paragraph = "also, create one MORE senTENCE witH LAST WoRDS of each existING SENtence and add it to the END OF this Paragraph."
+
+# Initialize an empty lists to store interim results
+new_paragraphs = []
 last_words = [] 
 
-# Loop through of the list excluding the first element - the title 'homework'
-for sentence in sentences[1:]:
-    last_word = sentence.split(' ')[-1]  # Extract the last word of the current sentence
-    last_words.append(last_word) # Append the last word to the list 'last_words'
+# Change letter case to lower and split the text into paragraphs based on new lines
+paragraphs = re.split(r'(\n)', text.lower())
 
-# Insert a new sentence made of the last words, into 'sentences' in the position pointed in the text 
-sentences.insert(4, ' '.join(last_words))
+for paragraph in paragraphs:
+    # Split each paragraph into sentences based on indent or punctuation marks, capitalize and join into normalized sentences
+    new_sentences = [sentence.capitalize() for sentence in re.split(r'(\xa0\s*|[.!?]\s*)', paragraph)]
+    # Create normalized paragraphs
+    new_paragraphs.append(''.join(new_sentences))
 
-# Reconstruct the text, capitalizing the first letter of each sentence
-# The title is handled separately to ensure it's displayed correctly
-normalized_text = sentences[0].capitalize() + ' \n' + '. '.join([i.strip().capitalize() for i in sentences[1:]])
+
+# Loop through new_sentences and extract last word of each sentence
+    for sentence in new_sentences:
+        last_word = sentence.split(' ')[-1]
+        # Ensure last word is either alphabetical or alphanumeric
+        if last_word.isalpha() or last_word.isalnum(): 
+            last_words.append(last_word) # Append the last word to the list 'last_words'
+
+# Create a sentence from last words and capitalize
+new_sentence = ' '.join(last_words).capitalize() + '.'
+
+# Initialize a list to hold the final modified paragraphs
+final_paragraphs = []
+
+# Loop through normalized paragraphs
+for paragraph in new_paragraphs:
+    # Check if the current paragraph contains the target phrase.
+    if target_paragraph.lower() in paragraph.lower():
+        # Append the new sentence to the targeted paragraph
+        modified_paragraph = paragraph + " " + new_sentence
+        final_paragraphs.append(modified_paragraph)
+    else:
+        # If the current paragraph does not contain target paragraph, it is added as it is
+        final_paragraphs.append(paragraph)
+
+# Join all final paragraphs to form a normalized text
+normalized_text = ''.join(final_paragraphs)
 
 # Replace incorrect usages of "iz" with "is" using a regular expression
-final_text = re.sub(r'\biz\b', 'is', normalized_text)
+final_text = re.sub(r'(?<!“)\biz\b(?!”)', 'is', normalized_text)
 
 # Count the number of whitespace characters in the original text
 number_of_spaces = len(re.findall(r'\s', text))
+
+# print(normalized_text)
+print(final_text)
+print(number_of_spaces)
