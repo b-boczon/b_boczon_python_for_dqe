@@ -21,9 +21,9 @@ class News(Newsfeed):
         return f"News ------------\n{self.text}\n{self.city}, {self.date}"
 
 # Class with inheritance for publishing private ads which include an expiration date and calculate days left
-class PrivateAd:
+class PrivateAd(Newsfeed):
     def __init__(self, text, exp_date):
-        self.text = text  # Stores ad text
+        super().__init__(text)  # Call to the superclass to store the text
         self.exp_date = datetime.strptime(exp_date, '%Y-%m-%d').date()  # Converts string to a date
         self.days_left = (self.exp_date - date.today()).days  # Calculates days left until expiration
 
@@ -31,7 +31,7 @@ class PrivateAd:
     def publish(self):
         return f"Private Ad ------\n{self.text}\nActual until: {self.exp_date}, {self.days_left} days left"
 
-# Class with inheritance for generating a score between two teams
+# Class for generating a score between two teams
 class WhatsTheScore:
     def __init__(self, team1, team2):
         self.team1 = team1
