@@ -48,7 +48,7 @@ class WhatsTheScore(Newsfeed):
         # Generates random scores for each team
         return f"{head}{self.team1} {randint(0,3)} : {randint(0,3)} {self.team2} \nGo sports!"
 
-
+# Create continious menu using while loop to avoid getting errors with wrong input:
 while True:
     # User input to choose the type of content to publish
     type = input("What would you like to publish? Type 1 for News, 2 for Private Ad, 3 for Score or 0 to exit: ")
@@ -63,12 +63,13 @@ while True:
         while True:
             exp_date = input("Input the expiration date in format YYYY-MM-DD: ")
             try:
+                # error handling for past date
                 if datetime.strptime(exp_date, '%Y-%m-%d').date() < date.today():
                     print("Expiration date cannot be in the past")
                 else:
                     break
             except:
-                
+                # error handling for invalid format
                 print("Invalid date format. Please try again.")      
         newsfeed = PrivateAd(text, exp_date)
         break
@@ -82,12 +83,14 @@ while True:
         break
     
     else:
+        # error handling for invalid input
         print("Invalid input. Please try again.")
         
-# Appending the published content to a file named "Newsfeed"
+# Appending the published content to a file named "Newsfeed.txt"
 try:
     with open("Newsfeed.txt", "a", encoding="utf-8") as file:
         file.write(newsfeed.publish())
         file.write("\n\n")
 except: 
+    # If no input - do nothing
     pass
