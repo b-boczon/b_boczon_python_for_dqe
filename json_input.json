@@ -1,0 +1,32 @@
+{
+    "1": {
+        "news_type": "News",
+        "text": "AAaksjdbas, asdasfs,adgadfg, sdfgsdfgdsfg.",
+        "city": "alskdnaaSDak"
+    },
+    "2": {
+        "news_type": "Score",
+        "team1": "jhsad",
+        "team2": "ADFKGHADJ"
+    },
+    "3": {
+        "news_type": "Private ad",
+        "text": "jhsad asd askda dskuabdsfkjads fk, sd fvasd.  asd asd ,asd fasd agbsf",
+        "exp_date": "2024-11-12"
+    },
+    "4": {
+        "news_type": "News",
+        "text": "Aasdgadfga hts jeiykryu trshage fSagrsh. dsfg.",
+        "city": "alskdnaaSDak"
+    },
+    "5": {
+        "news_type": "News",
+        "text": "aky asydfa ksdb asdk fablsdfkausdb lfauskd blasd ku,ba.    jg hg hg",
+        "city": "alskdnaaSDak"
+    },
+    "6": {
+        "news_type": "Private ad",
+        "text": "past",
+        "exp_date": "2025-11-12"
+    }
+}
