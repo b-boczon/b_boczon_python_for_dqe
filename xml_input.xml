@@ -1,0 +1,18 @@
+<newsfeed>
+    <type news_type = "News">
+        <text>sad fsd fals dfasd f. sadf asd,f asd.f asd .</text>
+        <city>asabrsf</city>
+    </type>
+    <type news_type = "Private Ad">
+        <text>sdfav, asdf . sad fsd fals dfasd f. sadf asd,f asd.f asd .byae d6fuhdsb c.</text>
+        <exp_date>2122-11-11</exp_date>
+    </type>
+    <type news_type = "News">
+        <text>ASGvdaafv.sdfbsdfb.sdfbsdfb, sdfb sdf .sdf s.</text>
+        <city>pojiu</city>
+    </type>
+    <type news_type = "Score">
+        <team1>asdf fc</team1>
+        <team2>cf btrgsdf</team2>
+    </type>
+</newsfeed>

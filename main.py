@@ -2,6 +2,7 @@ import sys
 import os
 from from_txt import FromTXT
 from from_json import FromJSON
+from from_xml import FromXML
 from newsfeed import News, PrivateAd, WhatsTheScore
 from task_7 import to_csv
 
@@ -24,10 +25,11 @@ def write_to_file(newsfeed_items):
 # File paths with defaults if not provided
 txt_file_path = sys.argv[1] if len(sys.argv) > 1 else "./txt_input.txt"
 json_file_path = sys.argv[2] if len(sys.argv) > 2 else "./json_input.json"
+xml_file_path = sys.argv[3] if len(sys.argv) > 3 else "./xml_input.xml"
 
 # Main loop to handle user input
 while True:
-    start = input("Hello there! What would you like to publish today? Type 1 for JSON, 2 for txt, 3 to manually input, 0 to exit: ")
+    start = input("Hello there! What would you like to publish today? Type 1 for JSON, 2 for TXT, 3 for XML, 9 for manual input, 0 to exit: ")
     
     # Exit the program
     if start == "0":
@@ -52,8 +54,14 @@ while True:
         else:
             print('No file here')
 
+    elif start == "3":
+        if os.path.exists(xml_file_path):
+            xml_input = FromXML(xml_file_path)
+            newsfeed_items = xml_input.process_xml(News, PrivateAd, WhatsTheScore)
+            write_to_file(newsfeed_items)
+
     # Manual input
-    elif start == "3":    
+    elif start == "9":    
         # User input to choose the type of content to publish
         type = input("What would you like to publish? Type 1 for News, 2 for Private Ad, 3 for Score or 0 to exit: ")
 
