@@ -5,8 +5,13 @@ from from_json import FromJSON
 from from_xml import FromXML
 from newsfeed import News, PrivateAd, WhatsTheScore
 from task_7 import to_csv
+from export_to_db import ToDB
 
-# function to write newsfeed items to txt file and recalculate csv statistics
+
+db_connection = ToDB('newsfeed_db.db') # initialize ToDB
+db_connection.create_tables() # create tables
+
+# function to write newsfeed items to txt file, DB and recalculate csv statistics
 def write_to_file(newsfeed_items):
     try:
         # Open the Newsfeed.txt file in append mode
@@ -15,12 +20,20 @@ def write_to_file(newsfeed_items):
             for item in newsfeed_items:
                 output.write(item.publish())
                 output.write("\n\n")
+                # Insert records into specific tables in the database
+                if isinstance(item, News):
+                    db_connection.insert_news(item.text, item.city, item.date)
+                elif isinstance(item, PrivateAd):
+                    db_connection.insert_private_ad(item.text, item.exp_date, item.days_left)
+                elif isinstance(item, WhatsTheScore):
+                    db_connection.insert_score(item.team1, item.score, item.team2)
 
         # Call the to_csv function to update CSV files with new statistics
         to_csv()
-    except:
+
+    except Exception as e:
         # Print an error message if something goes wrong
-        print('No input')
+        print(f'Error: {e}')
 
 # File paths with defaults if not provided
 txt_file_path = sys.argv[1] if len(sys.argv) > 1 else "./txt_input.txt"
@@ -61,7 +74,7 @@ while True:
             write_to_file(newsfeed_items)
 
     # Manual input
-    elif start == "9":    
+    elif start == "9":
         # User input to choose the type of content to publish
         type = input("What would you like to publish? Type 1 for News, 2 for Private Ad, 3 for Score or 0 to exit: ")
 

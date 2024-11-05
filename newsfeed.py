@@ -70,5 +70,5 @@ class WhatsTheScore(Newsfeed):
         head = self.header("Todays score")
         t1 = normalize([self.team1])
         t2 = normalize([self.team2])
-        # Generates random scores for each team
-        return f"{head}{t1} {randint(0,3)} : {randint(0,3)} {t2} \nGo sports!"
+        self.score = f"{randint(0,3)} : {randint(0,3)}" # Generates random scores for each team
+        return f"{head}{t1} {self.score} {t2} \nGo sports!"
