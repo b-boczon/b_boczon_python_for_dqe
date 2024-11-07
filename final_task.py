@@ -4,6 +4,7 @@ import sys
 
 r = 6371 # Earth radius in km
 
+# Function to take in coordinates in degrees and calculate the distance
 def calc_distance(coordinate1, coordinate2):
     # Convert latitude and longitude from degrees to radians
     lat1 = math.radians(coordinate1[0])
@@ -23,6 +24,7 @@ def calc_distance(coordinate1, coordinate2):
     dist = r * c
     return dist
 
+# Function to get coordinates from db or take new coordinates and insert them into db
 def get_coordinates(city, cursor):
     # Try to take coordinates from the database
     try:
